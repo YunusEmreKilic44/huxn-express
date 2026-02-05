@@ -8,29 +8,31 @@
 import express from "express";
 const app = express();
 
-const cb1 = (req, res, next) => {
-  console.log("First Callback");
-  next();
-};
+// Ugly Code
+// app.get("/student", (req, res) => {
+//   res.send("All Students");
+// });
 
-const cb2 = (req, res, next) => {
-  console.log("Second Callback");
+// app.post("/student", (req, res) => {
+//   res.send("Add New Student");
+// });
 
-  next();
-};
+// app.put("/student", (req, res) => {
+//   res.send("Update Student");
+// });
 
-app.get(
-  "/crazyness",
-  [cb1, cb2],
-  (req, res, next) => {
-    console.log("Third Callback");
-    next();
-  },
-  (req, res, next) => {
-    console.log("Fourth callback");
-    res.send("Crazyness");
-  },
-);
+// app.delete("/student", (req, res) => {
+//   res.send("Delete Student");
+// });
+
+// Refactor
+//app.route();
+app
+  .route("/student")
+  .get((req, res) => res.send("All Students"))
+  .post((req, res) => res.send("Add New Student"))
+  .put((req, res) => res.send("Update Student"))
+  .delete((req, res) => res.send("Delete Student"));
 
 app.listen(8000, () => {
   console.log(`Server running on port 8000`);
