@@ -1,13 +1,23 @@
 import express from "express";
+import products from "./products.js";
+import userCredential from "./middlewares/logs.js";
 
 const app = express();
 
-// Query String ? &
+// Middleware (req,res,next)
 
-app.get("/product", (req, res) => {
-  const { category, id } = req.query;
+/*
+    Request
 
-  res.send(`Product Category: ${category} & Product ID: ${id}`);
+    Middleware
+
+    Response
+*/
+
+//app.use(userCredential);
+
+app.get("/products", userCredential, (req, res) => {
+  res.json(products);
 });
 
 app.listen(8000, () => {
