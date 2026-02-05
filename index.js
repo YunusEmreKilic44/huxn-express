@@ -14,16 +14,23 @@ const cb1 = (req, res, next) => {
 };
 
 const cb2 = (req, res, next) => {
-  console.log("Two Callback");
+  console.log("Second Callback");
+
   next();
 };
 
-const cb3 = (req, res, next) => {
-  console.log("Third Callback");
-  res.send("Array of callbacks");
-};
-
-app.get("/array-cb", [cb1, cb2, cb3]);
+app.get(
+  "/crazyness",
+  [cb1, cb2],
+  (req, res, next) => {
+    console.log("Third Callback");
+    next();
+  },
+  (req, res, next) => {
+    console.log("Fourth callback");
+    res.send("Crazyness");
+  },
+);
 
 app.listen(8000, () => {
   console.log(`Server running on port 8000`);
