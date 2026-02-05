@@ -1,23 +1,17 @@
 import express from "express";
-import products from "./products.js";
-import userCredential from "./middlewares/logs.js";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
 
-// Middleware (req,res,next)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+console.log(__dirname);
 
-/*
-    Request
+app.use(express.static("./public"));
 
-    Middleware
-
-    Response
-*/
-
-//app.use(userCredential);
-
-app.get("/products", userCredential, (req, res) => {
-  res.json(products);
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public"));
 });
 
 app.listen(8000, () => {
