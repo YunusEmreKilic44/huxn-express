@@ -2,24 +2,17 @@ import express from "express";
 
 const app = express();
 
-// Route Params
-// ecom/products/iphone/:iphone
+// "id" .get methodundaki :id ile eş olmalı
+// "category" - :category gibi
 
-app.get("/ecom/products/iphone/:model", (req, res) => {
-  const { model } = req.params;
-  res.send("Iphone " + model + " Pro Max");
+app.param("id", (req, res, next, id) => {
+  console.log(`id: ${id}`);
+  next();
 });
 
-app.get("/product/:category/:id", (req, res) => {
-  const { category, id } = req.params;
-
-  res.send(`Product Category: (${category}) - Product Id: (${id})`);
-});
-
-app.get("/product/order/:day/:month/:year", (req, res) => {
-  const { day, month, year } = req.params;
-
-  res.send(`Product was ordered on: ${day}/${month}/${year}`);
+app.get("/user/:id", (req, res) => {
+  console.log(`This is User ID PAth`);
+  res.send("Response Ok");
 });
 
 app.listen(8000, () => {
