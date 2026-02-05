@@ -1,17 +1,26 @@
 import express from "express";
-import students from "./routes/student.js";
-import teachers from "./routes/teachers.js";
+
 const app = express();
 
-// Create routes folder and put your routes in a seperate file
-// Create instance of express.Router()
-// Instead of app.method change that to router.method
-// Export router
-// Import router
-// use the app.use built in middleware & provide your routes
+// Route Params
+// ecom/products/iphone/:iphone
 
-app.use("/students", students);
-app.use("/teachers", teachers);
+app.get("/ecom/products/iphone/:model", (req, res) => {
+  const { model } = req.params;
+  res.send("Iphone " + model + " Pro Max");
+});
+
+app.get("/product/:category/:id", (req, res) => {
+  const { category, id } = req.params;
+
+  res.send(`Product Category: (${category}) - Product Id: (${id})`);
+});
+
+app.get("/product/order/:day/:month/:year", (req, res) => {
+  const { day, month, year } = req.params;
+
+  res.send(`Product was ordered on: ${day}/${month}/${year}`);
+});
 
 app.listen(8000, () => {
   console.log(`Server running on port 8000`);
