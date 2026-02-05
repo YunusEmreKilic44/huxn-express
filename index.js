@@ -8,19 +8,22 @@
 import express from "express";
 const app = express();
 
-// Basic Routing
+const cb1 = (req, res, next) => {
+  console.log("First Callback");
+  next();
+};
 
-app.get("/", (req, res) => {
-  res.send("<h1>Welcome To Home</h1>");
-});
+const cb2 = (req, res, next) => {
+  console.log("Two Callback");
+  next();
+};
 
-app.get("/about", (req, res) => {
-  res.send("<h1>About </h1>");
-});
+const cb3 = (req, res, next) => {
+  console.log("Third Callback");
+  res.send("Array of callbacks");
+};
 
-app.get("/contact", (req, res) => {
-  res.send("<h1>Contact Page</h1>");
-});
+app.get("/array-cb", [cb1, cb2, cb3]);
 
 app.listen(8000, () => {
   console.log(`Server running on port 8000`);
