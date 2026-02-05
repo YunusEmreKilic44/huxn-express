@@ -1,38 +1,17 @@
-// Create Folder
-// npm init -y
-// npm i express
-// Create Instance express
-// Provide Port :8000
-// Basic Route
-
 import express from "express";
+import students from "./routes/student.js";
+import teachers from "./routes/teachers.js";
 const app = express();
 
-// Ugly Code
-// app.get("/student", (req, res) => {
-//   res.send("All Students");
-// });
+// Create routes folder and put your routes in a seperate file
+// Create instance of express.Router()
+// Instead of app.method change that to router.method
+// Export router
+// Import router
+// use the app.use built in middleware & provide your routes
 
-// app.post("/student", (req, res) => {
-//   res.send("Add New Student");
-// });
-
-// app.put("/student", (req, res) => {
-//   res.send("Update Student");
-// });
-
-// app.delete("/student", (req, res) => {
-//   res.send("Delete Student");
-// });
-
-// Refactor
-//app.route();
-app
-  .route("/student")
-  .get((req, res) => res.send("All Students"))
-  .post((req, res) => res.send("Add New Student"))
-  .put((req, res) => res.send("Update Student"))
-  .delete((req, res) => res.send("Delete Student"));
+app.use("/students", students);
+app.use("/teachers", teachers);
 
 app.listen(8000, () => {
   console.log(`Server running on port 8000`);
